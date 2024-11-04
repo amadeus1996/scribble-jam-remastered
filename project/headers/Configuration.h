@@ -1,13 +1,14 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
+
 #include <fstream>
 
 
 class Configuration {
     int difficulty;
     int startingLives;
-    int maxTimeLimit;
+    int numberOfGuesses;
 
     friend class Round;
 
@@ -18,7 +19,7 @@ public:
 
     Configuration &operator=(const Configuration &) = default;
 
-    friend std::ostream &operator<<(std::ostream &, Configuration &);
+    friend std::ostream &operator<<(std::ostream &, const Configuration &);
 };
 
 

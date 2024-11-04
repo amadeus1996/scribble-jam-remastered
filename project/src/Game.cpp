@@ -6,14 +6,9 @@
 
 Game *Game::instance = nullptr;
 
-Game::Game() {
-    this->dict = new Dictionary;
-}
-
 Game::~Game() {
-    for (const auto &round: roundsPlayed)
+    for (const auto &round: this->roundsPlayed)
         delete round;
-    delete dict;
 }
 
 Game &Game::getInstance() {
@@ -62,7 +57,7 @@ void Game::playRound() {
     system("CLS");
     if (this->roundsPlayed.empty()) {
         std::cout << "BEFORE PLAYING: WORDS THAT HAVE LESS THAN 3 LETTERS WILL NOT BE TAKEN INTO CONSIDERATION. "
-                     "THE GAME IS NOT CASE-SENSITIVE. PRESS ANY KEY TO PROCEED\n\n";
+                "THE GAME IS NOT CASE-SENSITIVE. PRESS ANY KEY TO PROCEED\n\n";
         waitForInput();
     }
 
@@ -72,16 +67,19 @@ void Game::playRound() {
         return;
     }
 
-    if (input == 4) std::cout<<"\n";
     auto *round = new Round(input - 1);
 
     std::string difficulty;
-    if (input == 1) difficulty = "EASY";
+    if (input == 1)
+        difficulty = "EASY";
+    else if (input == 2)
+        difficulty = "MEDIUM";
+    else if (input == 3)
+        difficulty = "HARD";
     else if (input == 4) {
         difficulty = "CUSTOM";
-        std::cout<<"\n";
+        std::cout << "\n";
     }
-    else difficulty = input == 2 ? "MEDIUM" : "HARD";
 
     for (int i = 0; i < 3; ++i) {
         std::cout << difficulty << " DIFFICULTY PICKED\n";
@@ -91,7 +89,7 @@ void Game::playRound() {
 
     while (round->hasLives()) {
         system("CLS");
-        round->guessWord(*dict);
+        round->guessWord();
     }
     this->roundsPlayed.push_back(round);
 

@@ -1,17 +1,15 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Dictionary.h"
 #include "Round.h"
 #include <vector>
 
 
 class Game {
     static Game *instance;
-    Dictionary *dict;
     std::vector<Round *> roundsPlayed;
 
-    Game();
+    Game() = default;
 
     ~Game();
 
